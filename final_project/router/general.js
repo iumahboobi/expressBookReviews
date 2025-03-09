@@ -70,8 +70,6 @@ const getBooksByIsbn = async (isbn) => {
       }
     }, 1000)
   })
-
-
 }
 
 public_users.get('/isbn/:isbn', async (req, res) => {
@@ -83,11 +81,8 @@ public_users.get('/isbn/:isbn', async (req, res) => {
     return res.status(200).json({ book: JSON.stringify(book, null, 2) });
 
   } catch (error) {
-
     return res.status(500).json({ message: "Book ISBN not found" });
-
   }
-
 });
 
 // Get book details based on author
@@ -95,13 +90,9 @@ public_users.get('/isbn/:isbn', async (req, res) => {
 const getBooksByAuthor = async (author) => {
 
   return new Promise((resolve, reject) => {
-
     setTimeout(() => {
-
       const matchingBooks = [];
-
       for (const isbn in books) {
-
         if (books[isbn].author === author) {
 
           matchingBooks.push(books[isbn])
@@ -110,7 +101,6 @@ const getBooksByAuthor = async (author) => {
       }
       if (matchingBooks.length > 0) {
         resolve(matchingBooks)
-
       }
       else {
         reject(new Error(`No books found by ${author}`))
@@ -121,29 +111,21 @@ const getBooksByAuthor = async (author) => {
 
 public_users.get('/author/:author', async (req, res) => {
   //Write your code here
-
   const author = req.params.author;
-
   try {
-
     const matchingBooks = await getBooksByAuthor(author)
     return res.status(200).json({ books: matchingBooks })
-
   } catch (error) {
 
     return res.status(404).json({ message: `No book found by this author: ${author}` })
 
   }
-
 });
 
 // Get all books based on title
 
 const getBooksByTitle = async (title) => {
-
   return new Promise((resolve, reject) => {
-
-
     setTimeout(() => {
       const matchingBooks = []
 
@@ -152,42 +134,26 @@ const getBooksByTitle = async (title) => {
           matchingBooks.push(books[isbn])
         }
       }
-
       if (matchingBooks.length > 0) {
         resolve(matchingBooks)
       }
-
       else {
         reject(new Error(`Couldn't find book by this title ${title}`));
       }
-
-
     })
 
-
   }, 1000)
-
-
 }
-
 
 public_users.get('/title/:title', async (req, res) => {
   //Write your code here
-
   const title = req.params.title;
-
   try {
-
     const matchingTitle = await getBooksByTitle(title);
-
     return res.status(200).json({ books: matchingTitle })
-
   } catch (error) {
-
     return res.status(404).json({ message: `No book found by this title: ${title}` });
-
   }
-
 });
 
 //  Get book review
